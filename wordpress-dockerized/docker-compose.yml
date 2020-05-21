@@ -1,0 +1,53 @@
+version: '3.3'
+
+services:
+
+  wordpress:
+    build:
+      context: ./wp
+      dockerfile: Dockerfile
+      # args:
+      #   buildno: 1
+        # gitcommithash: cdc3b19
+      # args:
+      #   - buildno=1
+      #   - gitcommithash=cdc3b19
+    container_name: lpi_wp
+    # restart: always
+    ports:
+      - 8000:80
+    environment:
+      DB_HOST: lpi_db
+      DB_USER: lpi-admin
+      DB_PASSWORD: l4protector4del4infanci4
+      DB_NAME: laprotectora-wp
+      DB_PORT: 3306
+    volumes:
+      - /home/ivanx/LaProtectora/lpi-wp2/wp/wp-data:/var/www/html
+    networks:
+      - frontend
+    # depends_on:
+    #   - db
+    
+#   db:
+#     build:
+#       context: ./db
+#       dockerfile: Dockerfile
+#     restart: always
+#     container_name: lpi_db
+#     environment:
+#       MYSQL_DATABASE: laprotectora-wp
+#       MYSQL_USER: lpi-admin
+#       MYSQL_PASSWORD: l4protector4del4infanci4
+#       MYSQL_RANDOM_ROOT_PASSWORD: '1'
+#     volumes:
+#       - db:/var/lib/mysql
+#     networks:
+#       - frontend
+# #
+# volumes:
+#   db:
+
+networks:
+  frontend:
+    driver: bridge
